@@ -5,3 +5,11 @@
 html,body {
     height: 100%;
 }
+.pointer {
+    cursor:pointer;
+}
+.flexStartBox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
