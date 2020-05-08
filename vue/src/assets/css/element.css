@@ -1,0 +1,24 @@
+.el-menu {
+    height:100%;
+}
+.el-submenu .el-menu-item {
+    min-width: 150px;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+}
+.el-menu-item i,.el-submenu__title i {
+    margin-right:10px;
+}
+.submenu-title-noDropdown:hover,.el-submenu__title:hover,.el-menu-item:focus, .el-menu-item:hover {
+    background-color: #263445!important;
+}
+.is-active>.el-submenu__title {
+color: #f4f4f5!important;
+}
+.el-menu--vertical .nest-menu .el-submenu > .el-submenu__title:hover, .el-menu--vertical .el-menu-item:hover,.el-submenu__title:hover,.el-submenu__title:focus {
+    background-color: #263445!important;
+}
+.el-menu-item-group__title {
+    padding:0px;
+}

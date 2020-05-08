@@ -8,8 +8,11 @@ html,body {
 .pointer {
     cursor:pointer;
 }
-.flexStartBox {
+.flexStartBox,.flexBetweenBox{
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+.flexBetweenBox {
+    justify-content: space-between;
 }

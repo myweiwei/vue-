@@ -8,10 +8,10 @@
     router
     unique-opened
     active-text-color="rgb(64, 158, 255)"
-    :default-active="$route.path"
+    :default-active="$router.currentRoute.path?$router.currentRoute.path:'/index'"
     @open="handleOpen" 
     @close="handleClose" mode="vertical">
-        <template v-for="(item,index) in $router.options.routes" v-key='item.path'> 
+        <template v-for="(item,index) in $router.options.routes" v-key='item.path' v-if='!item.hidden'> 
             <el-submenu :index="index+''" v-if="!item.leaf">
                 <template slot="title">
                     <i :class="'iconfont '+item.icon"></i>
@@ -27,14 +27,20 @@
             </el-submenu>
             <el-menu-item :index='item.children[0].path' v-if="item.leaf">
                 <i :class="'iconfont '+item.icon"></i>
-                <span>{{item.name}}</span>
+                <span>{{item.children[0].name}}</span>
             </el-menu-item>
         </template>
     </el-menu>
     <div style='flex:1;height:100%'>
-        <div class="navBar">
-            <i class='iconfont icondaohangshouqi- pointer' @click='isCollapse=true' v-if='!isCollapse'></i>
-            <i class='iconfont iconzhankai  pointer' @click='isCollapse=false' v-if='isCollapse'></i>
+        <div class="navBar flexBetweenBox">
+            <div>
+                <i class='iconfont icondaohangshouqi- pointer' @click='isCollapse=true' v-if='!isCollapse'></i>
+                <i class='iconfont iconzhankai  pointer' @click='isCollapse=false' v-if='isCollapse'></i>
+            </div>
+            <div>
+                <i class='iconfont iconzhankai1 pointer' @click='full' v-if='!fullFlag'></i>
+                <i class='iconfont iconsuoxiao pointer' @click='full' v-else></i>
+            </div>
         </div>
         <router-view></router-view>
     </div>
@@ -42,22 +48,48 @@
 </template>
 
 <script>
+import screenfull  from 'screenfull'
 export default {
   name: '',
   data(){
     return {
         navTitle:"",
-        isCollapse:false
+        isCollapse:false,
+        fullFlag:false
     }
   },
   mounted(){
+    let me=this;
+    window.onresize=function(){
+    // 全屏下监控是否按键了ESC
+    if (!me.checkFull()) {
+    // 全屏下按键esc后要执行的动作
+        me.fullFlag = false
+    }
+    }
   },
   methods:{
     handleOpen(key, keyPath) {
-        console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
-        console.log(key, keyPath);
+    },
+    full:function(){
+        if (!screenfull.isEnabled) { // 如果不允许进入全屏，发出不允许提示
+            this.$message({
+                message: '不支持全屏',
+                type: 'warning'
+            })
+            return false
+        }
+        this.fullFlag=!this.fullFlag
+        screenfull.toggle();
+    },
+    checkFull() {
+        var isFull = screenfull.isFullscreen;
+        if (isFull === undefined) {
+            isFull = false;
+        }
+        return isFull;
     }
   },
   watch: {
@@ -82,27 +114,5 @@ export default {
             }
         }
         
-    }
-    .el-menu {
-        height:100%;
-    }
-    .el-submenu .el-menu-item {
-        min-width: 150px;
-    }
-    .el-menu-vertical-demo:not(.el-menu--collapse) {
-        width: 200px;
-    }
-    .el-menu-item i,.el-submenu__title i {
-        margin-right:10px;
-    }
-    // menu hover
-    .submenu-title-noDropdown:hover,.el-submenu__title:hover,.el-menu-item:focus, .el-menu-item:hover {
-        background-color: #263445!important;
-    }
-    .is-active>.el-submenu__title {
-    color: #f4f4f5!important;
-    }
-    .el-menu--vertical .nest-menu .el-submenu > .el-submenu__title:hover, .el-menu--vertical .el-menu-item:hover,.el-submenu__title:hover,.el-submenu__title:focus {
-        background-color: #263445!important;
     }
 </style>
