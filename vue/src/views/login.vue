@@ -4,13 +4,15 @@
             <h1>Login</h1>
             <el-form :rules="rules" :model='loginForm' ref="ruleForm" class="demo-ruleForm">
                 <el-form-item label="" prop="user">
-                    <el-input placeholder="请输入用户名" v-model="loginForm.user">
+                    <el-input placeholder="请输入用户名" v-model="loginForm.user" auto-complete="new-password">
                         <i slot="prefix" class="iconfont iconicon"></i>
                     </el-input>
                 </el-form-item>
                 <el-form-item label="" prop="password">
-                    <el-input placeholder="请输入密码" v-model="loginForm.password" type='password'>
+                    <el-input placeholder="请输入密码" v-model="loginForm.password" :type="passwordType" auto-complete="new-password">
                         <i slot="prefix" class="iconfont iconmima"></i>
+                        <i slot="suffix" class="iconfont iconbiyan pointer" @click='passwordType=""' v-if='passwordType=="password"'></i>
+                        <i slot="suffix" class="iconfont iconeye pointer" @click='passwordType="password"' v-else></i>
                     </el-input>
                 </el-form-item>
                 <el-form-item>
@@ -35,7 +37,8 @@ export default {
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' }
                 ]
-            }
+            },
+            passwordType:'password'
         }
     },
     methods:{
@@ -44,6 +47,7 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     sessionStorage.setItem('user',me.loginForm.user);
+                    sessionStorage.setItem('role',1);
                     if(sessionStorage.getItem('user')){
                         me.$router.push({path:"/index"})
                     }
@@ -90,10 +94,17 @@ export default {
                 height: 50px;
                 line-height: 50px;
             }
-            .el-input__prefix {
+            .el-form-item__content{
+                font-size:17px;
                 line-height: 50px;
                 left:2%;
-                color:#889aa4;
+                color:#889aa4!important;
+            }
+            .el-input__suffix-inner i{
+                font-size: 20px;
+            }
+            .el-input__prefix {
+                left:3%;
             }
         }
     }

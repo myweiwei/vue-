@@ -45,13 +45,7 @@ export const adminRoutes=[
     children: [
       {path: '/dialogDrag', component: dialogDrag, name: '弹窗拖动'}
     ]
-  },
-  {
-    path: '*',
-    hidden: true,
-    redirect: {path: '/index'}
   }
-  
 ]
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
