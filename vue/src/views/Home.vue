@@ -37,9 +37,22 @@
                 <i class='iconfont icondaohangshouqi- pointer' @click='isCollapse=true' v-if='!isCollapse'></i>
                 <i class='iconfont iconzhankai  pointer' @click='isCollapse=false' v-if='isCollapse'></i>
             </div>
-            <div>
+            <div class="flexStartBox">
                 <i class='iconfont iconzhankai1 pointer' @click='full' v-if='!fullFlag'></i>
                 <i class='iconfont iconsuoxiao pointer' @click='full' v-else></i>
+                <el-dropdown class='avaImg' trigger="click">
+                    <span class="el-dropdown-link">
+                        <img src="../assets/img.png" alt="">
+                        <div>
+                            <i class="iconfont iconxiala" style='padding:0 5px;font-size:15px;'></i>
+                        </div>
+                    </span>
+                    <el-dropdown-menu slot="dropdown" >
+                        <el-dropdown-item>
+                            <span @click='logOut'>登出</span>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
             </div>
         </div>
         <router-view></router-view>
@@ -90,6 +103,20 @@ export default {
             isFull = false;
         }
         return isFull;
+    },
+    logOut:function(){
+        let me=this;
+        this.$confirm('确认要登出吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            sessionStorage.setItem('user','');
+            sessionStorage.clear();
+            me.$router.push('/login');
+            window.location.reload();
+        }).catch(() => {
+        });
     }
   },
   watch: {
@@ -113,6 +140,17 @@ export default {
                 padding:0 15px;
             }
         }
-        
+        .avaImg {
+            img {
+                width:40px;
+                height:40px;
+                border-radius: 50%;
+            }
+        }
+        .el-dropdown-link {
+            display: flex;
+            align-items: baseline;
+            line-height: 100%;
+        }
     }
 </style>
