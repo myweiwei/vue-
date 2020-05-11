@@ -15,9 +15,6 @@ let flag=false;
 router.beforeEach((to, from, next) => {
   NProgress.start()
   let user=sessionStorage.getItem('user');
-  if(to.path=='/login'){
-    next();
-  }
   if(user){
     if(to.path=='/login'){
       next('/');
@@ -39,6 +36,8 @@ router.beforeEach((to, from, next) => {
   else {
     if(to.path!='/login'){
       next('/login');
+    }else{
+      next();
     }
     NProgress.done()
   }
@@ -108,7 +107,6 @@ Vue.directive('dialogDrag', {
     }
   }
 })
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

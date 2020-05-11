@@ -8,10 +8,10 @@
     router
     unique-opened
     active-text-color="rgb(64, 158, 255)"
-    :default-active="$router.currentRoute.path?$router.currentRoute.path:'/index'"
+    :default-active="$route.path"
     @open="handleOpen" 
     @close="handleClose" mode="vertical">
-        <template v-for="(item,index) in $router.options.routes" v-key='item.path' v-if='!item.hidden'> 
+        <template v-for="(item,index) in $router.options.routes" v-key='index' v-if='!item.hidden'> 
             <el-submenu :index="index+''" v-if="!item.leaf">
                 <template slot="title">
                     <i :class="'iconfont '+item.icon"></i>
@@ -33,9 +33,17 @@
     </el-menu>
     <div style='flex:1;height:100%'>
         <div class="navBar flexBetweenBox">
-            <div>
-                <i class='iconfont icondaohangshouqi- pointer' @click='isCollapse=true' v-if='!isCollapse'></i>
-                <i class='iconfont iconzhankai  pointer' @click='isCollapse=false' v-if='isCollapse'></i>
+            <div class="flexStartBox">
+                <div>
+                    <i class='iconfont icondaohangshouqi- pointer' @click='isCollapse=true' v-if='!isCollapse'></i>
+                    <i class='iconfont iconzhankai  pointer' @click='isCollapse=false' v-if='isCollapse'></i>
+                </div>
+                <transition mode="out-in">
+                    <el-breadcrumb separator="/">
+                        <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item v-for='item in breadcrumb' :key='item.name'>{{item.name}}</el-breadcrumb-item>
+                    </el-breadcrumb>
+                </transition>
             </div>
             <div class="flexStartBox">
                 <i class='iconfont iconzhankai1 pointer' @click='full' v-if='!fullFlag'></i>
@@ -48,14 +56,17 @@
                         </div>
                     </span>
                     <el-dropdown-menu slot="dropdown" >
-                        <el-dropdown-item>
+                        <el-dropdown-item>{{user}}</el-dropdown-item>
+                        <el-dropdown-item divided>
                             <span @click='logOut'>登出</span>
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
         </div>
-        <router-view></router-view>
+        <transition name="el-fade-in-linear" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
   </div>
 </template>
@@ -68,18 +79,24 @@ export default {
     return {
         navTitle:"",
         isCollapse:false,
-        fullFlag:false
+        fullFlag:false,
+        user:'',
+        breadcrumb:[]
     }
   },
   mounted(){
     let me=this;
     window.onresize=function(){
     // 全屏下监控是否按键了ESC
-    if (!me.checkFull()) {
-    // 全屏下按键esc后要执行的动作
-        me.fullFlag = false
+        if (!me.checkFull()) {
+        // 全屏下按键esc后要执行的动作
+            me.fullFlag = false
+        }
     }
-    }
+    me.user=sessionStorage.getItem('user');
+    let match1=me.$route.matched;
+    match1=match1.filter(item => item.name&&item.name!='首页' );
+    me.breadcrumb=match1;
   },
   methods:{
     handleOpen(key, keyPath) {
@@ -120,7 +137,12 @@ export default {
     }
   },
   watch: {
-  },
+    $route(route) {
+        let match=route.matched;
+        match=match.filter(item => item.name&&item.name!='首页' );
+        this.breadcrumb=match;
+    }
+}
 }
 </script>
 
@@ -152,5 +174,6 @@ export default {
             align-items: baseline;
             line-height: 100%;
         }
+
     }
 </style>
