@@ -142,7 +142,7 @@ export default {
         match=match.filter(item => item.name&&item.name!='首页' );
         this.breadcrumb=match;
     }
-}
+  }
 }
 </script>
 
