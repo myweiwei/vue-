@@ -11,8 +11,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "clipboard": "^2.0.6",
     "element-ui": "^2.13.1",
-    "node-sass": "^4.14.0",
+    "node-sass": "^4.14.1",
     "nprogress": "^0.2.0",
     "screenfull": "^5.0.2",
     "vue": "^2.5.2",

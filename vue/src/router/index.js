@@ -6,7 +6,7 @@ import index from '@/views/index.vue'
 import slottest from '@/views/slottest/index.vue'
 import dialogDrag from '@/views/component/dialogDrag.vue'
 import login from '@/views/login.vue'
-
+import clipboard from '@/views/component/clipboard.vue'
 export const constantRoutes=[
   {
     path: '/login',
@@ -42,7 +42,8 @@ export const adminRoutes=[
     icon:'iconapplications',
     name:'组件',
     children: [
-      {path: '/dialogDrag', component: dialogDrag, name: '弹窗拖动'}
+      {path: '/dialogDrag', component: dialogDrag, name: '弹窗拖动'},
+      {path:'/clipboard',component:clipboard,name:'文本复制'}
     ]
   }
 ]
