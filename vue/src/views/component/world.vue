@@ -92,13 +92,12 @@ export default {
                       }
                   }
                 }
-            ]
+            ],
+            infoWin:"",
+            tableDom:''
         }
     },
     methods:{
-        initMap:function(){
-            
-        }
     },
     mounted(){
         let me=this;
@@ -116,6 +115,19 @@ export default {
                 var marker = new AMap.Marker({
                     position:me.location_data[i].info.coord
                 })
+                marker.on('click', function (ev) {
+                    // 信息窗体的内容
+                    this.infoWin = new AMap.InfoWindow({
+                        autoMove: false,
+                        isCustom: true,  //使用自定义窗体
+                        offset: new AMap.Pixel(10, -10),
+                        content:'<div class="name">'+me.location_data[i].name+'</div>'
+                    });
+                    var x = ev.pixel.x;
+                    var y = ev.pixel.y;
+                    var lngLat = map.containerToLngLat(new AMap.Pixel(x, y));
+                    this.infoWin.open(map, lngLat);
+                });
                 map.add(marker);
             }
             
@@ -136,6 +148,10 @@ export default {
             background: #011144;
             width: 100%;
             height: 100%;
+        }
+        .name {
+            color:#fff;
+            padding:20px 20px 0 20px;
         }
     }
 </style>
