@@ -150,13 +150,12 @@ export default {
     .home {
         height:100%;
         .navBar {
-            height: 50px;
+            height: 6%;
             overflow: hidden;
             position: relative;
             background: #fff;
             -webkit-box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
             box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-            line-height: 50px;
             i {
                 font-size: 20px;
                 padding:0 15px;
