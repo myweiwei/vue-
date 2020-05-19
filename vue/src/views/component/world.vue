@@ -150,8 +150,11 @@ export default {
             height: 100%;
         }
         .name {
-            color:#fff;
-            padding:20px 20px 0 20px;
+            padding: 10px;
+            box-shadow: 0 0 10px #000;
+            background: #fff;
+            color: #666;
+            border-radius: 5px;
         }
     }
 </style>

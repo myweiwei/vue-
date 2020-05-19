@@ -32,6 +32,7 @@ router.beforeEach((to, from, next) => {
       flag=true;
       next({...to, replace: true});
     }
+    NProgress.done()
   }
   else {
     if(to.path!='/login'){

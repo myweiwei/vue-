@@ -13,8 +13,13 @@ export default {
   components: { admin, editor },
   data() {
     return {
-      currentRole: 'admin'
+      currentRole: ''
     }
   },
+  created(){
+    let me=this;
+    me.currentRole=sessionStorage.getItem('user')=="admin"?sessionStorage.getItem('user'):'editor';
+    console.log(sessionStorage.getItem('user'));
+  }
 }
 </script>
