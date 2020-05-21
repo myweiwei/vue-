@@ -1,4 +1,5 @@
 import {debounce} from '../common/util';
+import elementResizeDetectorMaker from 'element-resize-detector'
 export default {
     data() {
         return {
@@ -12,23 +13,18 @@ export default {
                 this.chartColumn.resize()
             }
         }, 100)
-        window.addEventListener('resize', this.__resizeHandler)
-        this.$_sidebarElm = document.getElementsByClassName('sidebar-container')[0]
-        this.$_sidebarElm && this.$_sidebarElm.addEventListener('transitionend', this.$_sidebarResizeHandler)
+        window.addEventListener('resize', this.__resizeHandler);
+        const erd = elementResizeDetectorMaker()
+        erd.listenTo(document.getElementsByClassName("contentBox"),(element)=>{
+           me.$nextTick(()=>{
+                me.resize()
+            })
+        })
     },
     beforeDestroy() {
-        window.removeEventListener('resize', this.__resizeHandler)
-
-        this.$_sidebarElm && this.$_sidebarElm.removeEventListener('transitionend', this.$_sidebarResizeHandler)
+        window.removeEventListener('resize', this.__resizeHandler);
     },
     methods: {
-        // use $_ for mixins properties
-        // https://vuejs.org/v2/style-guide/index.html#Private-property-names-essential
-        $_sidebarResizeHandler(e) {
-            if (e.propertyName === 'opacity') {
-                this.__resizeHandler()
-            }
-        },
         resize() {
             this.__resizeHandler()
         }

@@ -1,0 +1,59 @@
+@mixin get-theme-value($type, $value, $css-key, $css-value) {
+    @each $themename , $theme in $themes {
+        [data-theme = '#{$themename}'] & {
+            $_type: map-get($theme, $type);
+            #{$css-key}: #{$css-value} map-get($_type , $value );
+        }
+    }
+}
+
+@mixin get-color-value($type, $value) {
+    @each $themename , $theme in $themes {
+        [data-theme = '#{$themename}'] & {
+            $_type: map-get($theme, $type);
+            #{$type}-color: map-get($_type , $value );
+        }
+    }
+}
+
+@mixin background($color){
+    @include get-theme-value('background', $color, 'background', '');
+}
+@mixin background-color($color){
+    @include get-color-value('background', $color);
+}
+
+@mixin font-color($color) {
+    @include get-theme-value('font', $color, 'color', '');
+}
+
+@mixin border-color($color) {
+    @include get-color-value('border', $color);
+}
+@mixin border($color, $css-key:'border', $css-value:'1px solid') {
+    @include get-theme-value('border', $color,  $css-key , $css-value)
+}
+
+@mixin box-shadow($color, $css-value) {
+    @include get-theme-value('boxShadow', $color, 'box-shadow', $css-value)
+}
+@mixin common-link-font($size: 1.2) {
+    font-size: #{$size}rem; font-weight: 600;
+    &:hover,
+    &.selected{
+        @include font-color('color4');
+    }
+    @include font-color('color1');
+}
+@mixin common-font($size: 1.2, $font-weight: 400) {
+    font-size: #{$size}rem; font-weight: $font-weight;
+    @include font-color('color1');
+}
+
+@mixin flex($justify: flex-start, $align-items: center, $dir: row, $wrap: nowrap, $align-content: stretch) {
+  display: flex;
+  flex-flow: $dir $wrap;
+  justify-content: $justify;
+  align-items: $align-items;
+  align-content: $align-content;
+}

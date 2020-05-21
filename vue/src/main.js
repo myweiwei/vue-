@@ -6,9 +6,11 @@ import App from './App'
 import {adminRoutes} from './router'
 import router from './router'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
+//import 'element-ui/lib/theme-chalk/index.css';
+import './assets/theme/index.css'
 import './assets/css/common.css';
 import './assets/css/element.css';
+import './assets/css/element-variables.scss'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 let flag=false;
@@ -108,6 +110,22 @@ Vue.directive('dialogDrag', {
     }
   }
 })
+Vue.prototype.resetSetItem = function (key, newVal) {
+  if (key =='theme') {
+      // 创建一个StorageEvent事件
+      var newStorageEvent = document.createEvent('StorageEvent');
+      const storage = {
+          setItem: function (k, val) {
+              sessionStorage.setItem(k, val);
+              // 初始化创建的事件
+              newStorageEvent.initStorageEvent('setItem', false, false, k, null, val, null, null);
+              // 派发对象
+              window.dispatchEvent(newStorageEvent)
+          }
+      }
+      return storage.setItem(key, newVal);
+  }
+}
 new Vue({
   el: '#app',
   router,
