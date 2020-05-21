@@ -5,7 +5,7 @@
 
 <script>
     import echarts from 'echarts';
-    import resize from './resize'
+    import resize from '../resize'
 
     export default {
         name: "chart",

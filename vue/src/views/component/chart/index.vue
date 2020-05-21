@@ -4,14 +4,11 @@
             <div class='line'>
                 <lineChart :srcData='warnCountTrendData' :isGetData='warnCountFlag'></lineChart>
             </div>
-            <!-- <div class='line'>
-                <lineChart :srcData='warnCountTrendData' :isGetData='warnCountFlag'></lineChart>
-            </div> -->
         </div>
     </div>
 </template>
 <script>
-import lineChart from '@/components/lineChart.vue'
+import lineChart from '@/components/chart/lineChart.vue'
 export default {
     data(){
         return {
@@ -65,16 +62,16 @@ export default {
 }
 </script>
 <style lang="scss">
+    @import "../../../assets/css/theme.scss";
     .chart {
         height:100%;
         width:100%;
-        background: #f0f2f5;
         .line {
             width:49.5%;
             height:350px;
             background: #fff;
             border-radius: 5px;
-            margin:0.5;
+            margin-top:2%;
         }
     }
 </style>

@@ -1,0 +1,38 @@
+@import './mixin.scss';
+// default theme
+
+$default-theme : (
+  font: (
+    color1: #16284c,
+  ),
+  border: (
+    color1: #16284c,
+  ),
+  background: (
+    color1: #16284c,
+  ),
+  boxShadow: (
+    color1: rgba(0,0,0,.3)
+  )
+);
+
+//红色主题
+$red-theme : (
+  font: (
+    color1: red
+  ),
+  border: (
+    color1: red
+  ),
+  background: (
+    color1: red
+  ),
+  boxShadow: (
+    color1: rgba(0,0,0,.3)
+  )
+);
+
+$themes: (
+  default-theme: $default-theme,
+  red-theme: $red-theme
+);

@@ -143,7 +143,7 @@ export default {
 <style lang="scss">
     .world {
         width:100%;
-        height:94%;
+        height:100%;
         .map {
             background: #011144;
             width: 100%;
