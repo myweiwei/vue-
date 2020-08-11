@@ -27,8 +27,8 @@ export default {
     data(){
         return {
             loginForm:{
-                user:'',
-                password:''
+                user:'admin',
+                password:'123456'
             },
             rules: {
                 user: [
@@ -93,6 +93,7 @@ export default {
                 color: #fff;
                 height: 50px;
                 line-height: 50px;
+                padding-left:40px; 
             }
             .el-form-item__content{
                 font-size:17px;

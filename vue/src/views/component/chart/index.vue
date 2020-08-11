@@ -1,20 +1,28 @@
 <template>
     <div class='chart'>
-        <div class='flexAroundBox'>
-            <div class='line'>
-                <lineChart :srcData='warnCountTrendData' :isGetData='warnCountFlag'></lineChart>
-            </div>
-        </div>
+        <el-row :gutter='10'>
+            <el-col :span='12'>
+                <div class='common-container'>
+                    <lineChart :srcData='warnCountTrendData' :isGetData='warnCountFlag'></lineChart>
+                </div>
+            </el-col>
+            <el-col :span='12'>
+                <div class='common-container'>
+                    <mapChart :srcData='mapData' :isGetData='mapFlag'></mapChart>
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 <script>
 import lineChart from '@/components/chart/lineChart.vue'
+import mapChart from '@/components/chart/map.vue'
 export default {
     data(){
         return {
             warnCountTrendData: {
                 id: 'warnCountTrend',
-                height: 350,
+                height: 400,
                 sData:[
                     {
                         name:'竞逐对',
@@ -49,14 +57,21 @@ export default {
                 ]
             },
             warnCountFlag: false,
+            mapData: {
+                id: 'mapData',
+                height: 400
+            },
+            mapFlag: false,
         }
     },
     components:{
-        lineChart
+        lineChart,
+        mapChart
     },
     mounted(){
         let me=this;
         me.warnCountFlag=true;
+        me.mapFlag=true;
     }
 
 }
@@ -67,8 +82,7 @@ export default {
         height:100%;
         width:100%;
         .line {
-            width:49.5%;
-            height:350px;
+            height:400px;
             background: #fff;
             border-radius: 5px;
             margin-top:2%;

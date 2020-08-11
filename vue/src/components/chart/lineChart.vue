@@ -110,6 +110,5 @@
 <style scoped lang="scss">
     .warnCount {
         width: 100%;
-        height: 350px;
     }
 </style>

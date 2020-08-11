@@ -64,7 +64,7 @@
                 </el-dropdown>
             </div>
         </div>
-        <div style="width:100%;height:100%;padding-top:60px;box-sizing:border-box">
+        <div class='content'>
             <transition name="el-fade-in-linear" mode="out-in">
                 <keep-alive>
                     <router-view></router-view>
@@ -160,6 +160,13 @@ export default {
     @import  '../assets/css/theme.scss';
     .home {
         height:100%;
+        .content {
+            width:100%;
+            height:100%;
+            padding-top:60px;
+            box-sizing:border-box;
+            background-color:#eef0f3;
+        }
         .contentBox {
             flex:1;
             height:100%;

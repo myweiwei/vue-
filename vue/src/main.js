@@ -6,13 +6,15 @@ import App from './App'
 import {adminRoutes} from './router'
 import router from './router'
 import ElementUI from 'element-ui'
-//import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/index.css';
 import './assets/theme/index.css'
 import './assets/css/common.css';
 import './assets/css/element.css';
 import './assets/css/element-variables.scss'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import jsPlumb from 'jsplumb'
+Vue.prototype.$jsPlumb = jsPlumb.jsPlumb
 let flag=false;
 router.beforeEach((to, from, next) => {
   NProgress.start()

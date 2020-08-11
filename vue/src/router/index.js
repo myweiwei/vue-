@@ -9,6 +9,7 @@ import login from '@/views/login.vue'
 import clipboard from '@/views/component/clipboard.vue'
 import world from '@/views/component/world.vue'
 import chart from '@/views/component/chart/index.vue'
+import permission from '@/views/permission.vue'
 export const constantRoutes=[
   {
     path: '/login',
@@ -38,6 +39,15 @@ export const constantRoutes=[
 ]
 export const adminRoutes=[
   {
+    path: '/permission',
+    component: Home,
+    leaf:true,
+    icon:'iconshouye',
+    children: [
+      {path: '/permission', component: permission, name: '权限'},
+    ]
+  },
+  {
     path: '/dialogDrag',
     component: Home,
     leaf:false,
@@ -48,6 +58,17 @@ export const adminRoutes=[
       {path:'/clipboard',component:clipboard,name:'文本复制'},
       {path:'/world',component:world,name:'高德地图'},
       {path:'/chart',component:chart,name:'图表'}
+    ]
+  },
+  {
+    path: '/jsplumb',
+    component: Home,
+    leaf:false,
+    icon:'iconerji-wangluotuopu',
+    name:'拓扑',
+    children: [
+      {path: '/jsplumb', component: ()=>import('@/views/jsplumb'), name: '拓扑基础'},
+      {path: '/jsplumb/test', component: ()=>import('@/views/jsplumb/test'), name: '拓扑案例'}
     ]
   }
 ]
